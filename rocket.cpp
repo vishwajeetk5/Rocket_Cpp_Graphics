@@ -46,9 +46,7 @@ void drawearth(){
     fillellipse(50,560,90,40);
     setfillstyle(SOLID_FILL,GREEN); 
     floodfill(50,560,GREEN);
-
 }
-
 
 void drawRocket(int x, int y, int angle) {
     // Body of the rocket
@@ -77,18 +75,25 @@ void drawRocket(int x, int y, int angle) {
     int yOffset = static_cast<int>( 20* cos(radianAngle));
 
     // Top part of the rocket
-    setcolor(LIGHTRED);
-    line(x + 10, y + 50, x + 25 , y + 20 );
-    line(x + 40, y + 50, x + 25 , y + 20 );
-    line(x + 10, y + 50, x + 40, y + 50);
+    setcolor(DARKGRAY);
+    // line(x + 10, y + 50, x + 25 , y + 20 );
+    // line(x + 40, y + 50, x + 25 , y + 20 );
+    // line(x + 10, y + 50, x + 40, y + 50);
+    int rad = 100;
+    arc(x+10+100,y+50,149,180,rad);
+    arc(x+40-100,y+50,0,31,rad);
+    for(int i=0;i<30;i++){
+       arc(x+10+100,y+50,149+i,180,rad-i);
+    arc(x+40-100,y+50,0,31-i,rad-i); 
+    }
 
     // Flame
     setcolor(RED);
     for (int i = 1; i < 30; i++) {
+        
         rectangle(x + 15 - i, y + 150 + i, x + 35 + i, y + 180 + i);
         setfillstyle(SOLID_FILL, RED);
         floodfill(x + 16, y + 160 + i, RED);
-
     }
 }
 
@@ -118,7 +123,11 @@ int main() {
     int x = getmaxx() / 2 - 30;
     int y = getmaxy() - 200;
     int angle = 0;
-
+   
+       drawMoon();
+        drawearth();
+        drawRocket(x, y, angle);
+        delay(100);
     while (y >= -70) {
         delay(100);
         cleardevice();
@@ -133,7 +142,7 @@ int main() {
         y -= 15; // Adjust the vertical movement for the curve
     }
     displaymsg();
-  delay(20000);
+    delay(20000);
     closegraph();
     return 0;
 }
